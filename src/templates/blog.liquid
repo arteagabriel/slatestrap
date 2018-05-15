@@ -1,0 +1,104 @@
+{% paginate blog.articles by 5 %}
+
+{%- assign blog_title = blog.title -%}
+
+    {% if current_tags %}
+        {% capture blog_title %}{{ blog.title | link_to: blog.url }} &mdash; {{ current_tags.first }}{% endcapture %}
+    {% endif %}
+
+    <div class="jumbotron jumbotron-fluid page-jumbotron">
+        <div class="container">
+            <h1>{{ blog_title }}</h1>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row flex-row-reverse">
+            <div class="col-md-8">
+                {% comment %}
+                    Article Previews
+                    ====================
+                {% endcomment %}
+
+                {% for article in blog.articles %}
+                    <h3 class="mb-0">
+                        <a href="{{ article.url }}">{{ article.title }}</a>
+                    </h3>
+
+                    {% capture date %}{{ article.published_at | time_tag: format: 'month_day_year' }}{% endcapture %}
+
+                    <p class="mb-2">
+                        <small>
+                            {{ 'blogs.article.author_on_date_html' | t: author: article.author, date: date }}
+                        </small>
+                    </p>
+
+                    {% if article.image %}
+                        <a href="{{ article.url }}" class="d-block mb-3">
+                            {% include 'responsive-image' with
+                                image: article.image,
+                                max_width: 1024,
+                                max_height: 1024
+                            %}
+                        </a>
+                    {% endif %}
+
+                    <div class="rte">
+                        {% if article.excerpt.size > 0 %}
+                            <p>
+                                {{ article.excerpt }}
+                            </p>
+                        {% else %}
+                            <p>
+                                {{ article.content | strip_html | truncatewords: 100 }}
+                            </p>
+                        {% endif %}
+                    </div>
+
+                    {% if article.tags.size > 0 %}
+                        <div class="mb-3">
+                            {% for tag in article.tags %}
+                                <a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="badge badge-secondary badge-pill">{{ tag }}</a>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    {% if blog.comments_enabled? %}
+                        <div class="btn-group mb-3" role="group" aria-label="Basic example">
+                            <a href="{{ article.url }}#comments" class="btn btn-outline-secondary btn-sm">
+                                {{ 'blogs.comments.with_count' | t: count: article.comments_count }}
+                            </a>
+                            <a href="{{ article.url }}" class="btn btn-outline-primary btn-sm">{{ 'blogs.article.read_more' | t }} &rarr;</a>
+                        </div>
+                    {% else %}
+                        <p>
+                            <a href="{{ article.url }}" class="btn btn-outline-primary btn-sm">{{ 'blogs.article.read_more' | t }} &rarr;</a>
+                        </p>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="col-md-4">
+                {% if blog.all_tags.size > 0 %}
+                    <h2 class="mb-3">{{ 'blogs.general.categories' | t }}</h2>
+
+                    <div class="list-group">
+                        {% for tag in blog.all_tags %}
+                            {% if current_tags contains tag %}
+                                {{ tag | link_to_tag: tag | replace: 'a href', 'a class="list-group-item list-group-item-action active" href' }}
+                            {% else %}
+                                {{ tag | link_to_tag: tag | replace: 'a href', 'a class="list-group-item list-group-item-action" href' }}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <ul>
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    {% if paginate.pages > 1 %}
+        {% include 'pagination' %}
+    {% endif %}
+{% endpaginate %}

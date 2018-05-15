@@ -1,0 +1,106 @@
+.hide {
+  display: none;
+}
+
+.errors {
+  ul {
+    margin-bottom: 0;
+  }
+}
+
+.shopify-challenge {
+  &__container {
+    padding: 2rem 0;
+  }
+
+  &__message {
+    @extend .alert;
+    @extend .alert-primary;
+  }
+
+  &__button {
+    @include button-variant($primary, $primary);
+  }
+}
+
+.collection {
+  &__tag {
+    a {
+      color: $white;
+    }
+  }
+}
+
+// similar to Bootstrap's .img-fluid but these classes are coupled with Shopify's JS
+.responsive-image {
+  &__wrapper {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    margin: 0 auto;
+
+    .no-js & {
+      display: none;
+    }
+
+    &::before {
+      content: '';
+      position: relative;
+      display: block;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+    }
+
+    &--full-height {
+      height: 100%;
+    }
+  }
+
+  &__image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.image-with-text {
+  padding: 3rem 0;
+}
+
+// Only show when JS is not supported
+.no-js:not(html) {
+  display: none;
+
+  .no-js & {
+    display: block;
+  }
+}
+
+// Only show when JS is supported
+.js {
+  .no-js & {
+    display: none;
+  }
+}
+
+// Only show when browser cookies are not supported
+.supports-no-cookies:not(html) {
+  display: none;
+
+  html.supports-no-cookies & {
+    display: block;
+  }
+}
+
+// Only show when browser cookies are supported
+.supports-cookies {
+  html.supports-no-cookies & {
+    display: none;
+  }
+}

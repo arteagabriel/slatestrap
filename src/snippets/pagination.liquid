@@ -1,0 +1,11 @@
+<div class="pagination">
+    {% for part in paginate.parts %}
+        <div class="page-item">
+            {% if part.is_link %}
+                {{ part.title | link_to: part.url | replace: 'a href', 'a class="page-link" href' }}
+            {% else %}
+                <a class="page-link">{{ paginate.current_page }}</a>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>

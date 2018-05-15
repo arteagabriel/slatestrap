@@ -1,0 +1,130 @@
+<div class="alert alert-success hide" id="ResetSuccess">
+    {{ 'customer.recover_password.success' | t }}
+</div>
+
+<div id="CustomerLoginForm">
+    {% form 'customer_login' %}
+        <div class="jumbotron jumbotron-fluid page-jumbotron">
+            <div class="container">
+                <h1>{{ 'customer.login.title' | t }}</h1>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    {% if form.errors != blank %}
+                        <div class="alert alert-danger">
+                            {{ form.errors | default_errors }}
+                        </div>
+                    {% endif %}
+
+                    <div class="form-group">
+                        <label for="CustomerEmail">
+                            {{ 'customer.login.email' | t }}
+                        </label>
+                        <input type="email"
+                               name="customer[email]"
+                               id="CustomerEmail"
+                               class="{% if form.errors contains 'email' %}input-error is-invalid{% endif %} form-control"
+                               placeholder="{{ 'customer.login.email' | t }}"
+                               spellcheck="false"
+                               autocomplete="off"
+                               autocapitalize="off"
+                               autofocus
+                        >
+                    </div>
+
+                    {% if form.password_needed %}
+                        <div class="form-group">
+                            <label for="CustomerPassword">
+                                {{ 'customer.login.password' | t }}
+                            </label>
+                            <input type="password"
+                                   name="customer[password]"
+                                   id="CustomerPassword"
+                                   class="{% if form.errors contains 'password' %}input-error is-invalid{% endif %} form-control"
+                                   placeholder="{{ 'customer.login.password' | t }}"
+                            >
+                        </div>
+                    {% endif %}
+
+                    <p>
+                        <input type="submit" class="btn btn-primary" value="{{ 'customer.login.sign_in' | t }}">
+
+                        <a href="/" class="btn btn-outline-secondary">{{ 'customer.login.cancel' | t }}</a>
+                    </p>
+
+                    <p>
+                        <a href="/account/register">
+                            {{ 'layout.customer.create_account' | t }}
+                        </a>
+                    </p>
+
+                    {% if form.password_needed %}
+                        <p>
+                            <a href="#recover" id="RecoverPassword" class="text-danger">{{ 'customer.login.forgot_password' | t }}</a>
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endform %}
+</div>
+
+<div id="RecoverPasswordForm" class="hide">
+    <div class="jumbotron jumbotron-fluid page-jumbotron">
+        <div class="container">
+            <h2>{{ 'customer.recover_password.title' | t }}</h2>
+            <p>{{ 'customer.recover_password.subtext' | t }}</p>
+        </div>
+    </div>
+
+    {% form 'recover_customer_password' %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    {% if form.errors != blank %}
+                        <div class="alert alert-danger">
+                            {{ form.errors | default_errors }}
+                        </div>
+                    {% endif %}
+
+                    {% if form.posted_successfully? %}
+                        <span class="hide reset-password-success"></span>
+                    {% endif %}
+
+                    <div class="form-group">
+                        <label for="RecoverEmail">
+                            {{ 'customer.recover_password.email' | t }}
+                        </label>
+                        <input type="email"
+                               name="email"
+                               id="RecoverEmail"
+                               placeholder="{{ 'customer.recover_password.email' | t }}"
+                               spellcheck="false"
+                               autocomplete="off"
+                               autocapitalize="off"
+                               class="form-control"
+                        >
+                    </div>
+
+                    <input type="submit" class="btn btn-primary" value="{{ 'customer.recover_password.submit' | t }}">
+
+                    <button type="button" class="btn btn-outline-secondary" id="HideRecoverPasswordLink">
+                        {{ 'customer.recover_password.cancel' | t }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    {% endform %}
+
+</div>
+
+{% if shop.checkout.guest_login %}
+    <h2>{{ 'customer.login.guest_title' | t }}</h2>
+
+    {% form 'guest_login' %}
+        <input type="submit" class="button" value="{{ 'customer.login.guest_continue' | t }}">
+    {% endform %}
+{% endif %}

@@ -1,0 +1,81 @@
+{%- comment -%}
+  This is a required section for the Shopify Theme Store.
+  It is available when you add "Newsletter" section on the Theme Editor.
+
+  Theme Store required settings
+  - Heading: title of the newsletter section
+  - Subheading: description of the newsletter section
+{%- endcomment -%}
+<section class="mb-4">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4 text-center">
+                {% if section.settings.section_title != blank %}
+                    <label for="Email" class="h3">{{ section.settings.section_title | escape }}</label>
+                {% endif %}
+                {% if section.settings.subheading != blank %}
+                    <p class="small text-muted">{{ section.settings.subheading | escape }}</p>
+                {% endif %}
+
+                {% form 'customer' %}
+                    {% if form.errors != blank %}
+                        <div class="alert alert-danger">
+                            {{ form.errors | default_errors }}
+                        </div>
+                    {% endif %}
+
+                    {% if form.posted_successfully? %}
+                        <div class="alert alert-success">
+                            {{ 'general.newsletter_form.confirmation' | t }}
+                        </div>
+                    {% else %}
+                        <div class="input-group mb-3">
+                            <input type="hidden" name="contact[tags]" value="newsletter">
+                            <input type="email"
+                                   name="contact[email]"
+                                   id="Email"
+                                   class="form-control"
+                                   value="{% if customer.email != blank %}{{ customer.email }}{% endif %}"
+                                   placeholder="{{ 'general.newsletter_form.email_placeholder' | t }}"
+                                   autocorrect="off"
+                                   autocapitalize="off">
+                            <div class="input-group-append">
+                                <button type="submit" name="commit" id="Subscribe" class="btn btn-primary">
+                                    <span>{{ 'general.newsletter_form.submit' | t }}</span>
+                                </button>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endform %}
+            </div>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Newsletter",
+    "settings": [
+      {
+        "type": "text",
+        "id": "section_title",
+        "label": "Heading",
+        "default": "Subscribe to our newsletter"
+      },
+      {
+        "type": "text",
+        "id": "subheading",
+        "label": "Subheading",
+        "default": "A short sentence describing what someone will receive by subscribing"
+      },
+      {
+        "type": "paragraph",
+        "content": "Any customers who sign up will have an account created for them in Shopify. [View customers](/admin/customers?query=&accepts_marketing=1)"
+      }
+    ],
+    "presets": [{
+      "name": "Newsletter",
+      "category": "Promotional"
+    }]
+  }
+{% endschema %}

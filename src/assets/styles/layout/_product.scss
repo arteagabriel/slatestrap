@@ -1,0 +1,34 @@
+.product {
+  &__select {
+    max-width: 320px;
+  }
+
+  &__qty {
+    width: 75px;
+  }
+
+  $thumbnail-spacer: 10px;
+  &__thumbnails {
+    margin-left: -$thumbnail-spacer;
+    margin-right: -$thumbnail-spacer;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &__thumbnail-wrapper {
+    padding: $thumbnail-spacer;
+    flex: 0 0 percentage(1/4);
+    max-width: percentage(1/4);
+    transition: 0.3s opacity ease;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  &__thumbnail-image {
+    width: 100%;
+    height: auto;
+  }
+}

@@ -1,0 +1,75 @@
+<div class="jumbotron jumbotron-fluid page-jumbotron">
+    <div class="container">
+        <h1>{{ 'customer.register.title' | t }}</h1>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            {% form 'create_customer' %}
+                {%  if form.errors != blank %}
+                    <div class="alert alert-danger">
+                        {{ form.errors | default_errors }}
+                    </div>
+                {% endif %}
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="FirstName">
+                            {{ 'customer.register.first_name' | t }}
+                        </label>
+                        <input type="text"
+                               name="customer[first_name]"
+                               id="FirstName"
+                               placeholder="{{ 'customer.register.first_name' | t }}"
+                               autofocus
+                               class="form-control"
+                               {% if form.first_name %}value="{{ form.first_name }}"{% endif %}>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="LastName">
+                            {{ 'customer.register.last_name' | t }}
+                        </label>
+                        <input type="text"
+                               name="customer[last_name]"
+                               id="LastName"
+                               placeholder="{{ 'customer.register.last_name' | t }}"
+                               class="form-control"
+                               {% if form.last_name %}value="{{ form.last_name }}"{% endif %}>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="Email">
+                        {{ 'customer.register.email' | t }}
+                    </label>
+                    <input type="email"
+                           name="customer[email]"
+                           id="Email"
+                           class="{% if form.errors contains 'email' %}input-error is-invalid{% endif %} form-control"
+                           placeholder="{{ 'customer.register.email' | t }}"
+                           value="{% if form.email %}{{ form.email }}{% endif %}"
+                           spellcheck="false"
+                           autocomplete="off"
+                           autocapitalize="off">
+                </div>
+
+                <div class="form-group">
+                    <label for="CreatePassword">
+                        {{ 'customer.register.password' | t }}
+                    </label>
+                    <input type="password"
+                           name="customer[password]"
+                           id="CreatePassword"
+                           class="{% if form.errors contains 'password' %}input-error is-invalid{% endif %} form-control"
+                           placeholder="{{ 'customer.register.password' | t }}">
+                </div>
+
+                <input type="submit" value="{{ 'customer.register.submit' | t }}" class="btn btn-primary">
+                <a href="{{ shop.url }}" class="btn btn-outline-secondary">{{ 'customer.register.cancel' | t }}</a>
+            {% endform %}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,81 @@
+<div class="jumbotron jumbotron-fluid page-jumbotron">
+    <div class="container">
+        <h1>{{ page.title }}</h1>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="rte">
+                {{ page.content }}
+            </div>
+        </div>
+        <div class="col-md-6">
+            {% form 'contact' %}
+
+                {% if form.posted_successfully? %}
+                    <div class="alert alert-success">
+                        {{ 'contact.form.post_success' | t }}
+                    </div>
+                {% endif %}
+
+                {% if form.errors != blank %}
+                    <div class="alert alert-danger">
+                        {{ form.errors | default_errors }}
+                    </div>
+                {% endif %}
+
+                <div class="form-group">
+                    <label for="ContactFormName">{{ 'contact.form.name' | t }}</label>
+                    <input type="text"
+                           name="contact[name]"
+                           id="ContactFormName"
+                           placeholder="{{ 'contact.form.name' | t }}"
+                           class="form-control"
+                           value="{% if form[name] %}{{ form[name] }}{% elsif customer %}{{ customer.name }}{% endif %}">
+                </div>
+
+                <div class="form-group">
+                    <label for="ContactFormEmail">{{ 'contact.form.email' | t }}</label>
+                    <input type="email"
+                           name="contact[email]"
+                           id="ContactFormEmail"
+                           placeholder="{{ 'contact.form.email' | t }}"
+                           value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                           spellcheck="false"
+                           autocomplete="off"
+                           class="form-control"
+                           autocapitalize="off">
+                </div>
+
+                <div class="form-group">
+                    <label for="ContactFormPhone">{{ 'contact.form.phone' | t }}</label>
+                    <input type="tel"
+                           name="contact[phone]"
+                           id="ContactFormPhone"
+                           placeholder="{{ 'contact.form.phone' | t }}"
+                           value="{% if form[phone] %}{{ form[phone] }}{% elsif customer %}{{ customer.phone }}{% endif %}"
+                           class="form-control"
+                           pattern="[0-9\-]*">
+                </div>
+
+                <div class="form-group">
+                    <label for="ContactFormMessage">{{ 'contact.form.message' | t }}</label>
+                    <textarea rows="10"
+                              name="contact[body]"
+                              id="ContactFormMessage"
+                              class="form-control"
+                              placeholder="{{ 'contact.form.message' | t }}">
+                        {% if form.body %}
+                            {{ form.body }}
+                        {% endif %}
+                    </textarea>
+                </div>
+
+                <input type="submit" class="btn btn-primary" value="{{ 'contact.form.send' | t }}">
+
+            {% endform %}
+        </div>
+    </div>
+</div>

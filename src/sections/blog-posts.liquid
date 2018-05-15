@@ -1,0 +1,150 @@
+{%- comment -%}
+  This is a required section for the Shopify Theme Store.
+  It is available when you add "Blog posts" section in the Theme Editor.
+
+  Theme Store required settings
+  - Heading: title of the blog posts section
+  - Blog (which blog category to show in your store)
+
+  Theme Store optional settings
+  - Number of posts to show
+  - Show author
+  - Show date
+{%- endcomment -%}
+<section class="blog-post mb-4">
+    {% if section.settings.title != blank %}
+        <div class="jumbotron jumbotron-fluid page-jumbotron">
+            <div class="container">
+                <h2 class="blog-post__title">{{ section.settings.title | escape }}</h2>
+            </div>
+        </div>
+    {% endif %}
+
+    {%- assign blog = blogs[section.settings.blog] -%}
+
+    <div class="container">
+        <div class="row">
+            {% for article in blog.articles limit: section.settings.post_limit %}
+                <div class="col-md-4">
+                    <div class="card blog-post__item mb-3">
+                        {% if article.image %}
+                            <a href="{{ article.url }}" class="d-block">
+                                {% include 'responsive-image' with
+                                    image: article.image,
+                                    max_width: 1024,
+                                    max_height: 1024
+                                %}
+                            </a>
+                        {% endif %}
+
+                        <div class="card-body">
+                            <h2 class="card-title">
+                                <a href="{{ article.url }}">{{ article.title }}</a>
+                            </h2>
+
+
+                            {% if section.settings.blog_show_date %}
+                                <p class="card-subtitle">
+                                    <small>
+                                        {% if section.settings.blog_show_author %}
+                                            <span>{{ 'blogs.article.by_author' | t: author: article.author }}</span>
+                                        {% endif %}
+                                        {{ article.published_at | time_tag: format: 'month_day_year' }}
+                                    </small>
+                                </p>
+                            {% endif %}
+
+                            <div class="mb-3">
+                                {% if article.excerpt.size > 0 %}
+                                    <p class="card-text">{{ article.excerpt }}</p>
+                                {% else %}
+                                    <p class="card-text">{{ article.content | strip_html | truncate: 150 }}</p>
+                                {% endif %}
+                            </div>
+
+                            {% if article.tags.size > 0 %}
+                                <div class="mb-3">
+                                    {% for tag in article.tags %}
+                                        <a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="badge badge-secondary badge-pill">{{ tag }}</a>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+
+                            <a href="{{ article.url }}" class="btn btn-outline-primary btn-sm">{{ 'blogs.article.read_more' | t }}</a>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                {% for i in (1..section.settings.post_limit) %}
+                    <div class="col-md-4">
+                        <div class="blog-post__item card">
+                            <h3 class="card-title">
+                                <a href="#">{{ 'homepage.onboarding.blog_title' | t }}</a>
+                            </h3>
+
+                            {% if section.settings.blog_show_author %}
+                                <p class="card-subtitle"><small>{{ 'homepage.onboarding.blog_author' | t }}</small></p>
+                            {% endif %}
+
+                            <div class="mb-3">
+                                <p class="card-text">{{ 'homepage.onboarding.blog_excerpt' | t }}</p>
+                            </div>
+
+                            <a href="#" class="btn btn-outline-primary btn-sm">{{ 'blogs.article.read_more' | t }}</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Blog posts",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Blog posts"
+      },
+      {
+        "id": "blog",
+        "type": "blog",
+        "label": "Blog"
+      },
+      {
+        "type": "range",
+        "id": "post_limit",
+        "label": "Posts",
+        "min": 3,
+        "max": 12,
+        "step": 3,
+        "default": 3
+      },
+      {
+        "type": "checkbox",
+        "id": "blog_show_author",
+        "label": "Show author",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "blog_show_date",
+        "label": "Show date",
+        "default": true
+      }
+    ],
+    "presets": [
+      {
+        "name": "Blog posts",
+        "category": "Blog",
+        "settings": {
+          "blog": "News",
+          "post_limit": 3
+        }
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,21 @@
+.product {
+  &__grid {
+    .product__item {
+      text-align: center;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+
+      .responsive-image {
+        &__wrapper {
+          margin-bottom: 1rem;
+        }
+      }
+
+      .product__price {
+        margin-top: auto;
+        margin-bottom: 0;
+      }
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{% comment %}
+    This page represents the /collections and /products pages.
+{% endcomment %}
+
+<div class="jumbotron jumbotron-fluid page-jumbotron">
+    <div class="container">
+        <h1>{{ page_title }}</h1>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row collection-list">
+        {% for collection in collections %}
+            {% unless collection.handle == 'frontpage' %}
+                <div class="col-md-6 mb-3">
+                    <div class="collection-list__item">
+                        <div class="collection-list__image">
+                            <a href="{{ collection.url }}" title="{{ 'collections.general.link_title' | t: title: title }}" class="collection-list__link">
+                                    {% if collection.image != blank or collection.products.first != blank %}
+                                        {%- assign image_object = collection.image | default: collection.products.first.featured_image -%}
+                                        {% include 'responsive-image' with
+                                            image: image_object,
+                                            max_width: 480,
+                                            max_height: 480
+                                        %}
+                                    {% else %}
+                                        {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+                                        {{ 'collection-' | append: current | placeholder_svg_tag: 'placeholder-svg placeholder-svg--small' }}
+                                    {% endif %}
+                            </a>
+                        </div>
+                        <h3 class="collection-list__title">
+                            <a href="{{ collection.url }}" title="{{ 'collections.general.link_title' | t: title: title }}">
+                                {{ collection.title }}
+                            </a>
+                        </h3>
+                    </div>
+                </div>
+            {% endunless %}
+        {% endfor %}
+    </div>
+</div>

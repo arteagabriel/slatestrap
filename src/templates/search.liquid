@@ -1,0 +1,94 @@
+{% paginate search.results by 10 %}
+    <div class="jumbotron jumbotron-fluid page-jumbotron">
+        <div class="container">
+            <h1>
+                {% if search.performed %}
+                    {% if search.results_count == 0 %}
+                        {{ 'general.search.no_results_html' | t: terms: search.terms }}
+                    {% else %}
+                        {{ 'general.search.results_for_html' | t: terms: search.terms }}
+                    {% endif %}
+                {% else %}
+                    {{ 'general.search.title' | t }}
+                {% endif %}
+            </h1>
+        </div>
+    </div>
+
+    <div class="container">
+        <form action="/search" method="get" role="search">
+            <div class="input-group">
+                <input type="search"
+                       name="q"
+                       id="Search"
+                       value="{{ search.terms | escape }}"
+                       class="form-control"
+                       placeholder="{{ 'general.search.placeholder' | t }}">
+                <label for="Search" class="sr-only">
+                    {{ 'general.search.placeholder' | t }}
+                </label>
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary btn-icon">
+                        {{ 'general.search.submit' | t }}
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <hr class="mt-5 mb-5">
+
+        {% if search.performed %}
+            <div class="row">
+                {% for item in search.results %}
+                    <div class="col-md-4 col-sm-6 mb-3">
+                        <div class="card flex-column h-100">
+                            {% assign featured_image = item.image | default: item.featured_image %}
+                            {% if featured_image != blank %}
+                                <a href="{{ item.url | within: collection }}" title="{{ item.title | escape }}">
+                                    {{ featured_image | img_url: '240x240' | img_tag: featured_image.alt | replace: 'img src', 'img class="card-img-top" src' }}
+                                </a>
+                            {% endif %}
+
+                            <div class="card-body">
+                                <h5 class="card-title">{{ item.title | link_to: item.url }}</h5>
+
+                                {% if item.object_type == 'product' %}
+                                    <p class="card-text">
+                                        {% if item.compare_at_price > item.price %}
+                                            {% if item.price_varies %}
+                                                {% assign sale_price = item.price | money %}
+                                                {{ 'products.product.on_sale_from_html' | t: price: sale_price }}
+                                            {% else %}
+                                                {{ 'products.product.on_sale' | t }}
+                                                <span itemprop="price">{{ item.price | money }}</span>
+                                            {% endif %}
+                                            <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+                                            <s>{{ item.compare_at_price | money }}</s>
+                                        {% else %}
+                                            {% if item.price_varies %}
+                                                {% assign price = item.price | money %}
+                                                <span itemprop="price">{{ 'products.product.from_text_html' | t: price: price }}</span>
+                                            {% else %}
+                                                <span itemprop="price">{{ item.price | money }}</span>
+                                            {% endif %}
+                                        {% endif %}
+                                        {% unless item.available %}
+                                            {{ 'products.product.sold_out' | t }}
+                                        {% endunless %}
+                                    </p>
+                                {% else %}
+                                    <p>{{ item.content | strip_html | truncatewords: 50 }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            {% if paginate.pages > 1 %}
+                {% include 'pagination' %}
+            {% endif %}
+        {% endif %}
+
+    </div>
+{% endpaginate %}

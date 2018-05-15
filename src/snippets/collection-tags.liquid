@@ -1,0 +1,13 @@
+{% if collection.all_tags.size > 0 %}
+    {% for tag in collection.all_tags %}
+        {% if current_tags contains tag %}
+            <li class="badge badge-primary collection__tag">
+                {{ tag | link_to_remove_tag: tag }}
+            </li>
+        {% else %}
+            <li class="badge badge-secondary collection__tag">
+                {{ tag | link_to_tag: tag }}
+            </li>
+        {% endif %}
+    {% endfor %}
+{% endif %}
