@@ -3,16 +3,63 @@
 /**
  * Slatestrap
  */
-@import './site-variables';
+// Utilities/Abstracts
+@import 'utils/site-variables';
+@import 'utils/functions';
+@import 'utils/animations';
+@import 'utils/mixins';
+
 @import './bootstrap-variables';
 @import './bootstrap-includes';
+j
+// Base
+@import 'base/shopify';
+@import 'base/global';
+@import 'base/typography';
 
 // Components
 @import 'components/buttons';
 @import 'components/jumbotron';
+@import 'components/forms';
 
 // Layouts
-@import 'layout/shopify';
-@import 'layout/collection-list';
-@import 'layout/collection';
-@import 'layout/product';
+@import 'layout/templates/collection-list';
+@import 'layout/templates/collection';
+@import 'layout/templates/product';
+@import 'layout/templates/article';
+@import 'layout/templates/blog';
+@import 'layout/templates/cart';
+@import 'layout/templates/collection';
+@import 'layout/templates/gift-card';
+@import 'layout/templates/list-collection';
+@import 'layout/templates/404';
+@import 'layout/templates/index';
+@import 'layout/templates/page';
+@import 'layout/templates/page-contact';
+
+@import 'layout/templates/customers/account';
+@import 'layout/templates/customers/addresses';
+@import 'layout/templates/customers/order';
+@import 'layout/templates/customers/reset-password';
+@import 'layout/templates/customers/activate-account';
+@import 'layout/templates/customers/login';
+@import 'layout/templates/customers/register';
+
+@import 'layout/snippets/collection-tags';
+
+@import 'layout/sections/footer';
+@import 'layout/sections/header';
+@import 'layout/sections/blog-posts';
+@import 'layout/sections/featured-collection';
+@import 'layout/sections/image-with-text';
+@import 'layout/sections/product';
+@import 'layout/sections/collection-list';
+@import 'layout/sections/featured-product';
+@import 'layout/sections/newsletter';
+@import 'layout/sections/rich-text';
+
+// Pages (i.e multiple pages use same template but have different styles)
+// @import 'pages/';
+
+// Vendor (i.e. slick slider)
+// @import 'vendor/';
