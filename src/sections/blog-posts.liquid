@@ -82,15 +82,17 @@
                                 <a href="#">{{ 'homepage.onboarding.blog_title' | t }}</a>
                             </h3>
 
-                            {% if section.settings.blog_show_author %}
-                                <p class="card-subtitle"><small>{{ 'homepage.onboarding.blog_author' | t }}</small></p>
-                            {% endif %}
+                            <div class="card-body">
+                                {% if section.settings.blog_show_author %}
+                                    <p class="card-subtitle"><small>{{ 'homepage.onboarding.blog_author' | t }}</small></p>
+                                {% endif %}
 
-                            <div class="mb-3">
-                                <p class="card-text">{{ 'homepage.onboarding.blog_excerpt' | t }}</p>
+                                <div class="mb-3">
+                                    <p class="card-text">{{ 'homepage.onboarding.blog_excerpt' | t }}</p>
+                                </div>
+
+                                <a href="#" class="btn btn-outline-primary btn-sm">{{ 'blogs.article.read_more' | t }}</a>
                             </div>
-
-                            <a href="#" class="btn btn-outline-primary btn-sm">{{ 'blogs.article.read_more' | t }}</a>
                         </div>
                     </div>
                 {% endfor %}
