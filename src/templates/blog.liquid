@@ -21,60 +21,62 @@
                 {% endcomment %}
 
                 {% for article in blog.articles %}
-                    <h3 class="mb-0">
-                        <a href="{{ article.url }}">{{ article.title }}</a>
-                    </h3>
+                    <div class="mb-4">
+                        <h3 class="mb-0">
+                            <a href="{{ article.url }}">{{ article.title }}</a>
+                        </h3>
 
-                    {% capture date %}{{ article.published_at | time_tag: format: 'month_day_year' }}{% endcapture %}
+                        {% capture date %}{{ article.published_at | time_tag: format: 'month_day_year' }}{% endcapture %}
 
-                    <p class="mb-2">
-                        <small>
-                            {{ 'blogs.article.author_on_date_html' | t: author: article.author, date: date }}
-                        </small>
-                    </p>
+                        <p class="mb-2">
+                            <small>
+                                {{ 'blogs.article.author_on_date_html' | t: author: article.author, date: date }}
+                            </small>
+                        </p>
 
-                    {% if article.image %}
-                        <a href="{{ article.url }}" class="d-block mb-3">
-                            {% include 'responsive-image' with
-                                image: article.image,
-                                max_width: 1024,
-                                max_height: 1024
-                            %}
-                        </a>
-                    {% endif %}
+                        {% if article.image %}
+                            <a href="{{ article.url }}" class="d-block mb-3">
+                                {% include 'responsive-image' with
+                                    image: article.image,
+                                    max_width: 1024,
+                                    max_height: 1024
+                                %}
+                            </a>
+                        {% endif %}
 
-                    <div class="rte">
-                        {% if article.excerpt.size > 0 %}
-                            <p>
-                                {{ article.excerpt }}
-                            </p>
+                        <div class="rte">
+                            {% if article.excerpt.size > 0 %}
+                                <p>
+                                    {{ article.excerpt }}
+                                </p>
+                            {% else %}
+                                <p>
+                                    {{ article.content | strip_html | truncatewords: 100 }}
+                                </p>
+                            {% endif %}
+                        </div>
+
+                        {% if article.tags.size > 0 %}
+                            <div class="mb-3">
+                                {% for tag in article.tags %}
+                                    <a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="badge badge-secondary badge-pill">{{ tag }}</a>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                        {% if blog.comments_enabled? %}
+                            <div class="btn-group mb-3" role="group" aria-label="Basic example">
+                                <a href="{{ article.url }}#comments" class="btn btn-outline-secondary btn-sm">
+                                    {{ 'blogs.comments.with_count' | t: count: article.comments_count }}
+                                </a>
+                                <a href="{{ article.url }}" class="btn btn-outline-primary btn-sm">{{ 'blogs.article.read_more' | t }} &rarr;</a>
+                            </div>
                         {% else %}
                             <p>
-                                {{ article.content | strip_html | truncatewords: 100 }}
+                                <a href="{{ article.url }}" class="btn btn-outline-primary btn-sm">{{ 'blogs.article.read_more' | t }} &rarr;</a>
                             </p>
                         {% endif %}
                     </div>
-
-                    {% if article.tags.size > 0 %}
-                        <div class="mb-3">
-                            {% for tag in article.tags %}
-                                <a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="badge badge-secondary badge-pill">{{ tag }}</a>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-
-                    {% if blog.comments_enabled? %}
-                        <div class="btn-group mb-3" role="group" aria-label="Basic example">
-                            <a href="{{ article.url }}#comments" class="btn btn-outline-secondary btn-sm">
-                                {{ 'blogs.comments.with_count' | t: count: article.comments_count }}
-                            </a>
-                            <a href="{{ article.url }}" class="btn btn-outline-primary btn-sm">{{ 'blogs.article.read_more' | t }} &rarr;</a>
-                        </div>
-                    {% else %}
-                        <p>
-                            <a href="{{ article.url }}" class="btn btn-outline-primary btn-sm">{{ 'blogs.article.read_more' | t }} &rarr;</a>
-                        </p>
-                    {% endif %}
                 {% endfor %}
             </div>
 
