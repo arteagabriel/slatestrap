@@ -70,6 +70,26 @@
                             {% endfor %}
                         {% endunless %}
 
+                        {% comment %}
+                            Uncomment this if you want to use swatches instead of a select. Make sure to comment/remove
+                            the select input below.
+                            <div class="product__option-container">
+                                {% for value in option.values %}
+                                    {% assign product_option_classes = "product__option-input product__option-input--button" %}
+
+                                    {% if option.name == 'Color' %}
+                                        {% assign swatch = value | escape | handleize %}
+                                        {% assign product_option_classes = product_option_classes | append: ' product__option-input--swatch product__swatch product__swatch--' | append: swatch %}
+                                    {% endif%}
+
+                                    <label class="{{ product_option_classes }}">
+                                        <input type="radio" name="{{ option.name }}" value="{{ value | escape }}" data-single-option-selector data-index="option{{ option.position }}">
+                                        {{ value | escape }}
+                                    </label>
+                                {% endfor %}
+                            </div>
+                        {% endcomment %}
+
                         <select name="id" class="no-js" data-product-select>
                             {% for variant in product.variants %}
                                 <option
@@ -119,7 +139,7 @@
 
                 </div>
 
-                <div class="rte">
+                <div>
                     {{ product.description }}
                 </div>
             </div>
