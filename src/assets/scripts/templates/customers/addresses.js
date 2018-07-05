@@ -7,6 +7,7 @@
  * @namespace customerAddresses
  */
 
+import '../../styles/layout/templates/_addresses.scss';
 import $ from 'jquery';
 
 const $newAddressForm = $('#AddressNewForm');

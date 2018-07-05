@@ -5,6 +5,7 @@
  *
  * @namespace password
  */
+import '../../styles/layout/templates/_login.scss';
 
 import $ from 'jquery';
 
