@@ -1,11 +1,23 @@
 <div class="pagination">
-    {% for part in paginate.parts %}
+    {% if paginate.previous.is_link %}
         <div class="page-item">
+            <a href="{{ paginate.previous.url }}" class="page-link">{{ paginate.previous.title }}</a>
+        </div>
+    {% endif %}
+
+    {% for part in paginate.parts %}
+        <div class="page-item {% if paginate.current_page == part.title %}active{% elsif part.is_link == false %}disabled{% endif %}">
             {% if part.is_link %}
-                {{ part.title | link_to: part.url | replace: 'a href', 'a class="page-link" href' }}
+                <a class="page-link" href="{{ part.url }}">{{ part.title }}</a>
             {% else %}
-                <a class="page-link">{{ paginate.current_page }}</a>
+                <a class="page-link" href="#">{{ part.title }}</a>
             {% endif %}
         </div>
     {% endfor %}
+
+    {% if paginate.next.is_link %}
+        <div class="page-item">
+            <a href="{{ paginate.next.url }}" class="page-link">{{ paginate.next.title }}</a>
+        </div>
+    {% endif %}
 </div>
