@@ -1,22 +1,4 @@
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-lg-3">
-                {%- assign footer_linklist1 = section.settings.footer_linklist1 -%}
-                <h4 class="display-title site-footer__navigation-title">Help</h4>
-                {% if linklists[footer_linklist1].links.size > 0 %}
-                    <ul class="site-footer__navigation">
-                        {% for link in linklists[footer_linklist1].links %}
-                            <li class="site-footer__navigation-item">
-                                <a href="{{ link.url }}" class="site-footer__navigation-link">{{ link.title }}</a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-            </div>
-        </div>
-    </div>
-
+<footer class="mt-4">
     <div class="bg-primary">
         <div class="container">
             <small class="text-white">{{ 'layout.footer.copyright' | t }} &copy; {{ 'now' | date: "%Y" }}, {{ shop.name | link_to: '/' | replace: 'href', 'class="text-white" href'}}.</small>
