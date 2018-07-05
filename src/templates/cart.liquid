@@ -1,11 +1,11 @@
-{% if cart.item_count > 0 %}
-    <div class="jumbotron jumbotron-fluid">
-        <div class="container">
-            <h1>{{ 'cart.general.title' | t }}</h1>
-        </div>
-    </div>
-
+<div class="jumbotron jumbotron-fluid">
     <div class="container">
+        <h1>{{ 'cart.general.title' | t }}</h1>
+    </div>
+</div>
+
+<div class="container">
+    {% if cart.item_count > 0 %}
         <form action="/cart" method="post" novalidate>
             <div class="table-responsive">
                 <table class="table table-bordered">
@@ -126,25 +126,23 @@
                 </div>
             </div>
         </form>
-    </div>
-{% else %}
-    <h1>{{ 'cart.general.title' | t }}</h1>
+    {% else %}
+        {% comment %}
+            Cart empty state
+        {% endcomment %}
+        <div class="supports-cookies">
+            <p>{{ 'cart.general.empty' | t }}</p>
+            <p>{{ 'cart.general.continue_browsing_html' | t }}</p>
+        </div>
 
-    {% comment %}
-        Cart empty state
-    {% endcomment %}
-    <div class="supports-cookies">
-        <p>{{ 'cart.general.empty' | t }}</p>
-        <p>{{ 'cart.general.continue_browsing_html' | t }}</p>
-    </div>
-
-    {% comment %}
-        Cart no cookies state
-        ---------------------
-        Browser cookies are required to use the cart. If cookies aren't enabled in the
-        browser a message is displayed prompting the user to enable them.
-    {% endcomment %}
-    <div class="supports-no-cookies">
-        <p>{{ 'cart.general.cookies_required' | t }}</p>
-    </div>
-{% endif %}
+        {% comment %}
+            Cart no cookies state
+            ---------------------
+            Browser cookies are required to use the cart. If cookies aren't enabled in the
+            browser a message is displayed prompting the user to enable them.
+        {% endcomment %}
+        <div class="supports-no-cookies">
+            <p>{{ 'cart.general.cookies_required' | t }}</p>
+        </div>
+    {% endif %}
+</div>
