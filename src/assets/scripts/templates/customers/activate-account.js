@@ -1,4 +1,4 @@
-import '../../styles/layout/templates/_activate-account.scss';
+import '../../../styles/layout/templates/customers/_activate-account.scss';
 
 import $ from 'jquery';
 

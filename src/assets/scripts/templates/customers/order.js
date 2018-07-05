@@ -1,4 +1,4 @@
-import '../../styles/layout/templates/_order.scss';
+import '../../../styles/layout/templates/customers/_order.scss';
 
 import $ from 'jquery';
 

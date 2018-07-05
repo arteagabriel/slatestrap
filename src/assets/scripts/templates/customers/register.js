@@ -1,4 +1,4 @@
-import '../../styles/layout/templates/_register.scss';
+import '../../../styles/layout/templates/customers/_register.scss';
 
 import $ from 'jquery';
 

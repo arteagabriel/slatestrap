@@ -1,4 +1,4 @@
-import '../../styles/layout/templates/_account.scss';
+import '../../../styles/layout/templates/customers/_account.scss';
 
 import $ from 'jquery';
 
