@@ -12,7 +12,6 @@ import $ from 'jquery';
 import 'bootstrap';
 import {pageLinkFocus} from '@shopify/theme-a11y';
 import {cookiesEnabled} from '@shopify/theme-cart';
-import {wrapTable, wrapIframe} from '@shopify/theme-rte';
 
 window.slate = window.slate || {};
 window.theme = window.theme || {};
@@ -25,24 +24,6 @@ $(document).ready(() => {
 
   $('.in-page-link').on('click', (evt) => {
     pageLinkFocus($(evt.currentTarget.hash));
-  });
-
-  // Target tables to make them scrollable
-  const tableSelectors = '.rte table';
-
-  wrapTable({
-    $tables: $(tableSelectors),
-    tableWrapperClass: 'rte__table-wrapper',
-  });
-
-  // Target iframes to make them responsive
-  const iframeSelectors =
-    '.rte iframe[src*="youtube.com/embed"],' +
-    '.rte iframe[src*="player.vimeo"]';
-
-  wrapIframe({
-    $iframes: $(iframeSelectors),
-    iframeWrapperClass: 'rte__video-wrapper',
   });
 
   // Apply a specific class to the html element for browser support of cookies.
