@@ -10,8 +10,8 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "@shopify/slate-cssvar-loader": "^1.0.0-beta.1",
-    "@shopify/slate-tools": ">=1.0.0-beta.1",
+    "@shopify/slate-cssvar-loader": "^1.0.0-beta.5",
+    "@shopify/slate-tools": ">=1.0.0-beta.5",
     "babel-preset-shopify": "^16.2.0",
     "eslint-plugin-shopify": "^19.0.0",
     "stylelint-config-prettier": "^3.0.4",
@@ -26,7 +26,7 @@
     "@shopify/theme-sections": "^1.0.0-alpha.4",
     "@shopify/theme-variants": "^1.0.0-alpha.5",
     "bootstrap": "^4.1.1",
-    "jquery": "^3.3.1",
+    "jquery": "^3.2.1",
     "lazysizes": "^4.0.2",
     "lodash-es": "^4.17.4",
     "popper.js": "^1.14.3"
