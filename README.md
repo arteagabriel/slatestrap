@@ -1,4 +1,5 @@
 # Starter Theme
+Modified version of Shopify's [Slate starter theme](https://github.com/Shopify/starter-theme) with Bootstrap 4 integrated.
 
 > **Starter Theme and [Slate v1](https://github.com/Shopify/slate) are currently in beta!** You should expect potentially breaking changes between updates and more bugs than a finalized release. Slate v1.0 has not yet been tested on Windows.
 
