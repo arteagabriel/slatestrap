@@ -36,15 +36,6 @@ if ($newAddressForm.length) {
     });
   });
 
-  // Toggle new/edit address forms
-  $('.address-new-toggle').on('click', () => {
-    $newAddressForm.toggleClass('hide');
-  });
-
-  $('.address-edit-toggle').on('click', function() {
-    const formId = $(this).data('form-id');
-    $(`#EditAddress_${formId}`).toggleClass('hide');
-  });
 
   $('.address-delete').on('click', function() {
     const $el = $(this);
