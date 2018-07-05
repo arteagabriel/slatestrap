@@ -1,4 +1,4 @@
-<div class="jumbotron jumbotron-fluid page-jumbotron">
+<div class="jumbotron jumbotron-fluid">
     <div class="container">
         <h1>{{ page.title }}</h1>
     </div>
@@ -26,27 +26,29 @@
                     </div>
                 {% endif %}
 
-                <div class="form-group">
-                    <label for="ContactFormName">{{ 'contact.form.name' | t }}</label>
-                    <input type="text"
-                           name="contact[name]"
-                           id="ContactFormName"
-                           placeholder="{{ 'contact.form.name' | t }}"
-                           class="form-control"
-                           value="{% if form[name] %}{{ form[name] }}{% elsif customer %}{{ customer.name }}{% endif %}">
-                </div>
+                <div class="form-row">
+                    <div class="form-group col-lg-6">
+                        <label for="ContactFormName">{{ 'contact.form.name' | t }}</label>
+                        <input type="text"
+                               name="contact[name]"
+                               id="ContactFormName"
+                               placeholder="{{ 'contact.form.name' | t }}"
+                               class="form-control"
+                               value="{% if form[name] %}{{ form[name] }}{% elsif customer %}{{ customer.name }}{% endif %}">
+                    </div>
 
-                <div class="form-group">
-                    <label for="ContactFormEmail">{{ 'contact.form.email' | t }}</label>
-                    <input type="email"
-                           name="contact[email]"
-                           id="ContactFormEmail"
-                           placeholder="{{ 'contact.form.email' | t }}"
-                           value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
-                           spellcheck="false"
-                           autocomplete="off"
-                           class="form-control"
-                           autocapitalize="off">
+                    <div class="form-group col-lg-6">
+                        <label for="ContactFormEmail">{{ 'contact.form.email' | t }}</label>
+                        <input type="email"
+                               name="contact[email]"
+                               id="ContactFormEmail"
+                               placeholder="{{ 'contact.form.email' | t }}"
+                               value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                               spellcheck="false"
+                               autocomplete="off"
+                               class="form-control"
+                               autocapitalize="off">
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -61,7 +63,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="ContactFormMessage">{{ 'contact.form.message' | t }}</label>
+                    <label for="ContactFormMessage">Comment</label>
                     <textarea rows="10"
                               name="contact[body]"
                               id="ContactFormMessage"

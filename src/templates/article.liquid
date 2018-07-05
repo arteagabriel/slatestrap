@@ -44,7 +44,7 @@
     {% endif %}
 
     <header role="banner">
-        <div class="jumbotron jumbotron-fluid page-jumbotron">
+        <div class="jumbotron jumbotron-fluid">
             <div class="container">
                 <h1>{{ article.title }}</h1>
                 {% capture date %}{{ article.published_at | time_tag: format: 'month_day_year' }}{% endcapture %}

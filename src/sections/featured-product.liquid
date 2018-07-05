@@ -13,7 +13,7 @@
     <meta itemprop="image" content="{{ featured_image | img_url: '800x' }}">
     <meta itemprop="description" content="{{ product.description | strip_html | escape }}">
 
-    <div class="jumbotron jumbotron-fluid page-jumbotron">
+    <div class="jumbotron jumbotron-fluid">
         <div class="container">
             <h1>{{ product.title | default: onboarding_title }}</h1>
 
