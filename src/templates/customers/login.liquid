@@ -1,7 +1,3 @@
-<div class="alert alert-success hide" id="ResetSuccess">
-    {{ 'customer.recover_password.success' | t }}
-</div>
-
 <div id="CustomerLoginForm">
     {% form 'customer_login' %}
         <div class="jumbotron jumbotron-fluid">
@@ -11,6 +7,10 @@
         </div>
 
         <div class="container">
+            <div class="alert alert-success hide" id="ResetSuccess">
+                {{ 'customer.recover_password.success' | t }}
+            </div>
+
             <div class="row">
                 <div class="col-md-6">
                     {% if form.errors != blank %}
