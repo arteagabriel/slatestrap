@@ -78,7 +78,6 @@ sections.register('product', {
         this.initImagesSwitch();
         this.productImageZoom();
 
-
         if (this.$featuredImage.length > 0) {
         }
     },
@@ -110,8 +109,6 @@ sections.register('product', {
             $(selectors.addToCart, this.$container).prop('disabled', true);
             $(selectors.addToCartText, this.$container).html(theme.strings.soldOut);
         }
-
-        console.log('in update cart state');
     },
 
     /**
@@ -141,22 +138,20 @@ sections.register('product', {
             $comparePrice.html('');
             $compareEls.addClass('hide');
         }
-        console.log('in update prices');
     },
 
     initImagesSwitch() {
-        console.log('in initimagesswitch');
         if (!$(selectors.productThumbs, this.$container).length) {
             return;
         }
 
-        var self = this;
+        let self = this;
 
         $(selectors.productThumbs, this.$container).on('click', function(evt) {
             evt.preventDefault();
 
-            var $el = $(this);
-            var imageSrc = $el.attr('href');
+            let $el = $(this);
+            let imageSrc = $el.attr('href');
 
             self.switchImage(imageSrc);
         });
@@ -181,7 +176,6 @@ sections.register('product', {
      * @param {string} src - Image src URL
      */
     updateProductImage(evt) {
-        console.log('in update image');
         const variant = evt.variant;
         const sizedImgUrl = getSizedImageUrl(
             variant.featured_image.src,
@@ -210,3 +204,4 @@ sections.register('product', {
         this.$container.off(this.namespace);
     },
 });
+
